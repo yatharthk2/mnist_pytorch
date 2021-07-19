@@ -34,7 +34,7 @@ class NN(nn.Module):
         x = self.fc2(x)
         return x
     
-def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
+def save_checkpoint(state, filename="/root/mnist/my_checkpoint.pth.tar"):
     print("=> Saving checkpoint")
     torch.save(state, filename)
 
