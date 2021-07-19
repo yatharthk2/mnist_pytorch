@@ -8,12 +8,14 @@ from torch import optim  # For optimizers like SGD, Adam, etc.
 from torch import nn  # All neural network modules
 from torch.utils.data import DataLoader  # Gives easier dataset managment by creating mini batches etc.
 from tqdm import tqdm  # For nice progress bar!
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--checkpoint', type=str, default=r"/root/mnist_source/my_checkpoint.pth.tar")
+parser.add_argument('--load_model', type=str, default=r"False")
 
-# Here we create our simple neural network. For more details here we are subclassing and
-# inheriting from nn.Module, this is the most general way to create your networks and
-# allows for more flexibility. I encourage you to also check out nn.Sequential which
-# would be easier to use in this scenario but I wanted to show you something that
-# "always" works.
+
+args = parser.parse_args()
+
 class NN(nn.Module):
     def __init__(self, input_size, num_classes):
         super(NN, self).__init__()
@@ -34,9 +36,15 @@ class NN(nn.Module):
         x = self.fc2(x)
         return x
     
-def save_checkpoint(state, filename="/root/mnist/my_checkpoint.pth.tar"):
+def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
     print("=> Saving checkpoint")
     torch.save(state, filename)
+    
+def load_checkpoint(checkpoint, model, optimizer):
+    print("=> Loading checkpoint")
+    model.load_state_dict(checkpoint["state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    
 
 
 # Set device cuda for GPU if it's available otherwise run on the CPU
@@ -62,10 +70,12 @@ model = NN(input_size=input_size, num_classes=num_classes).to(device)
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+if args.load_model == "True":
+    load_checkpoint(torch.load(args.checkpoint), model, optimizer)
 
 # Train Network
 for epoch in range(num_epochs):
-    losses = []
+    
     if epoch % 3 == 0:
         checkpoint = {"state_dict": model.state_dict(), "optimizer": optimizer.state_dict()}    
         save_checkpoint(checkpoint)
