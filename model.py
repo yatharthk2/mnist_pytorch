@@ -1,4 +1,3 @@
-
 # Imports
 import torch
 import torchvision # torch package for vision related things
@@ -10,37 +9,41 @@ from torch import nn  # All neural network modules
 from torch.utils.data import DataLoader  # Gives easier dataset managment by creating mini batches etc.
 from tqdm import tqdm  # For nice progress bar!
 
+# Here we create our simple neural network. For more details here we are subclassing and
+# inheriting from nn.Module, this is the most general way to create your networks and
+# allows for more flexibility. I encourage you to also check out nn.Sequential which
+# would be easier to use in this scenario but I wanted to show you something that
+# "always" works.
 class NN(nn.Module):
     def __init__(self, input_size, num_classes):
         super(NN, self).__init__()
+        # Our first linear layer take input_size, in this case 784 nodes to 50
+        # and our second linear layer takes 50 to the num_classes we have, in
+        # this case 10.
         self.fc1 = nn.Linear(input_size, 50)
         self.fc2 = nn.Linear(50, num_classes)
+
     def forward(self, x):
-        
+        """
+        x here is the mnist images and we run it through fc1, fc2 that we created above.
+        we also add a ReLU activation function in between and for that (since it has no parameters)
+        I recommend using nn.functional (F)
+        """
+
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
     
-class CNN(nn.Module):
-    def __init__(self, input_channel = 1, num_classes = 10):
-        super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(input_channel = 1 , out_channels = 8, kernel_size = 3, stride = 1, padding = 1)
-        self.pool = nn.MaxPool2d(kernel_size = 2, stride = 2, padding = 0)
-        self.conv2 = nn.Conv2d(input_channel = 8 , out_channels = 16, kernel_size = 3, stride = 1, padding = 1)
-        self.fc1 = nn.linear(16*7*7 , num_classes)
-    def forward(self,x):
-        x = F.relu(self.conv1(x))
-        x = self.pool(x)
-        x = F.relu(self.conv2(x))
-        x = self.pool(x)
-        x = x.reshape(x.shape[0], -1)
-        x = self.fc1(x)
-        return x 
+def save_checkpoint(state, filename="my_checkpoint.pth.tar"):
+    print("=> Saving checkpoint")
+    torch.save(state, filename)
 
 
 # Set device cuda for GPU if it's available otherwise run on the CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Hyperparameters of our neural network which depends on the dataset, and
+# also just experimenting to see what works well (learning rate for example).
 input_size = 784
 num_classes = 10
 learning_rate = 0.001
@@ -62,6 +65,11 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # Train Network
 for epoch in range(num_epochs):
+    losses = []
+    if epoch % 3 == 0:
+        checkpoint = {"state_dict": model.state_dict(), "optimizer": optimizer.state_dict()}    
+        save_checkpoint(checkpoint)
+    
     for batch_idx, (data, targets) in enumerate(tqdm(train_loader)):
         # Get data to cuda if possible
         data = data.to(device=device)
