@@ -107,7 +107,7 @@ Step 3. run model file within src file of container
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/yatharthk2/mnist_pytorch?color=red&logo=github&logoColor=green&style=flat-square
-[contributors-url]: https://github.com/yatharthk2/Inpainting/graphs/contributors
+[contributors-url]: https://github.com/yatharthk2/mnist_pytorch/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/yatharthk2/mnist_pytorch?color=red&logo=github&logoColor=green&style=flat-square
 [forks-url]: https://github.com/yatharthk2/Inpainting/network/members
 <!--[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge-->
