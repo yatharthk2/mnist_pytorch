@@ -1,20 +1,4 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 <!--[![Stargazers][stars-shield]][stars-url]-->
@@ -27,11 +11,11 @@
 <br />
 <p align="center">
   <a href="https://github.com/yatharthk2/Inpainting">
-    <img src="https://github.com/yatharthk2/Inpainting/blob/master/ivg/Inpainting_img.png" alt="Logo" width="1080" height="500">
+    <img src="https://github.com/yatharthk2/mnist_pytorch/blob/master/readme_images/download.png" alt="Logo" width="1080" height="500">
   </a>
 
   <p align="center">
-    <h3 align="center">An image reconstruction project using concepts of partial convolution</h3>
+    <h3 align="center">A project for efficiently merging concepts of NN and containerizing it into working container , which is deployment ready </h3>
     <br />
     <a href="https://github.com/yatharthk2/Inpainting"><strong>Explore the docs »</strong></a>
     <br />
@@ -46,106 +30,73 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-
-
-This is a very unique project in itself as  very recently the concept of partial convolutions was introduced to the world [december 2018], before partial convolution we used to use algorithms such as PatchMatch, Iizuka et al, Yu et al and even the KNN for image reconstruction but there were two huge setbacks to these algorithms, which were :
-1) Since the algorithms were ignorant of the different objects in the image, they often tended to smoothen the whole reconstruction, which was good to human eyes but lacked the actual information in terms of object segregation.
-
-2) Another limitation of many recent approaches is the focus on rectangular-shaped holes, often assumed to be the center of the image. We find these limitations may lead to overfitting to the rectangular holes and ultimately limit the utility of these models in application
-### Architecture: The Image depicts flowchart for working of segmentation aware convolutions.
-Image taken from 
-<a href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Harley_Segmentation-Aware_Convolutional_Networks_ICCV_2017_paper.pdf"><strong>Research Paper »</strong></a>
-
-<img src="https://github.com/yatharthk2/Inpainting/blob/master/ivg/architecture.jpg" alt="Logo" width="1080" height="300">
-
-So to overcome the above 1st issue, a segmentation aware approach was used wherein the distorted image as well as the binary mask is inputted to the model as a result of which the model becomes aware of segmentations and different edges of the many objects in the image. Since the model is now aware of the segments it can more accurately segregate between the two objects.
-To overcome the 2nd issue, various methods have been documented by the authors of the Pconv research paper, but the Random Walk algorithm was chosen to generate a random mask for the model to train upon so that it does not overfit a particular hole point.
-
-### gif for iterations over many epochs
-![](https://github.com/yatharthk2/Inpainting/blob/master/ivg/train%20video.gif)
-
-Coming on to the aim of FaceInpainting, We saw that if we train the model on large datasets of images containing a single person then maybe we can teach the model to specifically reconstruct the distorted photo of a person. So to test the extent or limit to which we can reconstruct the broken image we trained the model with 50,000 images as training data, 5000 images as test data, and 5000 images as validation data for 1 million iterations.
-To download the datasets and weights
-<a href="https://drive.google.com/drive/folders/1E482OOOe_xYWVE9nKCnF_hrh0aLHgZIN?usp=sharing">click here</a>
-### final results shows reconstruction of 8 images , were  row 1 shows the distorted image ,row 2 shows the mask thats been applied for distortions , row 4 shows the final model reconstruction , row 5 shows the ground truth image. 
-
-<img src="https://github.com/yatharthk2/Inpainting/blob/master/ivg/8_segment_image.jpg" alt="Logo" width="900" height="500">
-
-### On our path to train model , we were able to implement one more splendid feature . Turns out that given enough data and iteration cycles the model has also aquired understanding to reconstruct some important features of human face such as eyes , ears and  lips.
-
-
-
-
+This project is based upon very basic building block of Neural Networks which is implementation of mnist . The implementation has 4 layer (1-input layer , 2-hidden layer , 1-softmax layer) , but what's peculiar about this project that I was able to make ubuntu based image of this project which was capable of doing following -
+* Run seperate miniconda environment named 'pytorch' on the Docker based  Ubuntu image.
+* The env 'pytorch' had all dependencies required for running the model (numpy ,torchaudio ,torchvision, tqdm ,argparse)
+* A volume piont was also mounted to the Docker image for the ease of running of source file within the container.
+* Upon running the train.py , the checkpoints would be saved in this defined volume which can be accessed without running the container through the local machine(windows in my case)
+*   The model is also configuerd to load the last checkpoint and continue training in the segments (the checkpoints can be accessed from the volume). which is quite a handy feature in itself .
 
 ### Built With
 1) Pytorch
-2) Opencv
-3) Nvidia cuda toolkit
+2) tqdm
+3) numpy
+4) docker
+5) argparser
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
+I made this project with intention of integrating concepts of Neuralnetwork and Docker container , but since i am not a Pro user of docker environment , i wont be able to provide the Image through the DockerHub(due to file being too large) , but below are the simple steps for creating your own Docker image .
+* I am assuming docker is already installed on your pc 
 
 Step 1. Clone the repository.
 
-Step 2. Download the dataset and pretrained weights from <a href="https://drive.google.com/drive/folders/1E482OOOe_xYWVE9nKCnF_hrh0aLHgZIN?usp=sharing">Here</a> and place it in the same directory.
-
-### Installation
-
-* Python 3.6+
-* Install Pytorch
-
-  (for cude 10.2 – GPU)
-  ```sh
-  pip install torch==1.9.0+cu102 torchvision==0.10.0+cu102 torchaudio===0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
-  ```
-  (for CPU)
-  ```sh
-  pip install torch torchvision torchaudio
-  ```
-  
-* Install python libraries
-  ```sh
+Step 2. Install the dependencies inyour environment using
+```sh
   pip install -r requirements.txt
   ```
-
-### Training
-
-* Start from scratch
-  ```sh
-  python train.py
+Step 3. Run model.py .(It will download mnist dataset from torch ) (once in root dir)
+ ```sh
+  python run model.py   
   ```
-* Resume training
-  ```sh
-  python train.py --resume <weights_path>
+Step 4. Compile docker file (once in root dir)
+```sh
+  docker build -t <the name you want to give to your image> .
   ```
-### Testing
-
-* Run the command line
-  ```sh
-  python run.py --photo <test_image_path>
+Step 5. Run container based upon your image ()
+```sh
+  docker run -v <add absolute path to add volume from local host>:/root/mnist_source -ti <name of your image>
   ```
-* Draw Mask
-* Press "s"
+  * The volume path should be absolute  . If want to rename the volume folder name in the image then make changes in model.py before building docker image and then change image path in -v<>
+  * This should make a container of image
+  
+### Running model from image(once inside the container - /bin/bash)
+Step 1. Activate the env 
+```sh
+  source activate pytorch 
+  ```
+  * all the dependecies are alredy installed while building the image
+ 
+Step 2. go to working dir 
+```sh
+  cd src
+  ```
+Step 3. run model file within src file of container 
+* The training will start and the check points will be saved in the volume mount .
 
-Output will be saved in the root directory in ```result.jpg``` format. 
-
-
+### Configuring Model.py hyperparameters
+* all the HP are listed inside the file itself 
+* To continue training on prrevious checkpoint , make sure the mnist_source has the previously trained weights , then run 
+```sh
+  python run model.py --load_model = True
+  ```
 <!-- CONTRIBUTING -->
 ## References
-1. <a href="https://arxiv.org/pdf/1804.07723.pdf"><strong>Partial convolution research paper »</strong></a> 
-2. <a href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Harley_Segmentation-Aware_Convolutional_Networks_ICCV_2017_paper.pdf"><strong>Segmentation aware convolution research paper »</strong></a>
-3. <a href="https://github.com/NVIDIA/partialconv"><strong>reference code Implementation »</strong></a> 
-4. <a href="https://github.com/naoto0804/pytorch-inpainting-with-partial-conv"><strong>Base code Implementation »</strong></a> 
-5. <a href="https://github.com/spmallick/learnopencv/blob/master/Image-Inpainting/inpaint.py"><strong>Manual mask generator code reference »</strong></a> 
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
+1. <a href="https://pytorch.org/docs/stable/index.html"><strong>Torch documentation</strong></a>
+2. <a href="https://docs.docker.com/"><strong>Docker Documentation</strong></a> 
+3. <a href="https://www.youtube.com/watch?v=0qG_0CPQhpg&t=2713s"><strong>Docker tutorial</strong></a>   https://pytorch.org/docs/stable/index.html
 
 
 <!-- CONTACT -->
