@@ -19,18 +19,12 @@ args = parser.parse_args()
 class NN(nn.Module):
     def __init__(self, input_size, num_classes):
         super(NN, self).__init__()
-        # Our first linear layer take input_size, in this case 784 nodes to 50
-        # and our second linear layer takes 50 to the num_classes we have, in
-        # this case 10.
+        
         self.fc1 = nn.Linear(input_size, 50)
         self.fc2 = nn.Linear(50, num_classes)
 
     def forward(self, x):
-        """
-        x here is the mnist images and we run it through fc1, fc2 that we created above.
-        we also add a ReLU activation function in between and for that (since it has no parameters)
-        I recommend using nn.functional (F)
-        """
+        
 
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
@@ -47,11 +41,10 @@ def load_checkpoint(checkpoint, model, optimizer):
     
 
 
-# Set device cuda for GPU if it's available otherwise run on the CPU
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Hyperparameters of our neural network which depends on the dataset, and
-# also just experimenting to see what works well (learning rate for example).
+
 input_size = 784
 num_classes = 10
 learning_rate = 0.001
