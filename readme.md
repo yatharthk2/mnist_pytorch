@@ -17,14 +17,12 @@
   <p align="center">
     <h3 align="center">A project for efficiently merging concepts of NN and containerizing it into working container , which is deployment ready </h3>
     <br />
-    <a href="https://github.com/yatharthk2/Inpainting"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/yatharthk2/mnist_pytorch/blob/master/readme.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/yatharthk2/Inpainting/blob/master/result.jpg">View Demo</a>
+    <a href="https://github.com/yatharthk2/mnist_pytorch/issues">Report Bug</a>
     ·
-    <a href="https://github.com/yatharthk2/Inpainting/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/yatharthk2/Inpainting/issues">Request Feature</a>
+    <a href="https://github.com/yatharthk2/mnist_pytorch/issues">Request Feature</a>
   </p>
 </p>
 
@@ -115,6 +113,6 @@ Step 3. run model file within src file of container
 <!--[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge-->
 <!--[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers-->
 [issues-shield]: https://img.shields.io/bitbucket/issues/yatharthk2/mnist_pytorch?color=red&logo=github&logoColor=green&style=flat-square
-[issues-url]:https://github.com/yatharthk2/Inpainting/issues
+[issues-url]:https://github.com/yatharthk2/mnist_pytorch/issues
 
 [product-screenshot]: C:\Users\yatha\OneDrive\Desktop\projects\Inpainting_project\Inpainting\train_video.gif
