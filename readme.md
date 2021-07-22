@@ -11,7 +11,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/yatharthk2/Inpainting">
-    <img src="https://github.com/yatharthk2/mnist_pytorch/blob/master/readme_images/download.png" alt="Logo" width="1080" height="500">
+    <img src="https://github.com/yatharthk2/mnist_pytorch/blob/master/readme_images/mnist.png" alt="Logo" width="800" height="500">
   </a>
 
   <p align="center">
