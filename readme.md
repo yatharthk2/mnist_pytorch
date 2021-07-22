@@ -96,8 +96,7 @@ Step 3. run model file within src file of container
 ## References
 1. <a href="https://pytorch.org/docs/stable/index.html"><strong>Torch documentation</strong></a>
 2. <a href="https://docs.docker.com/"><strong>Docker Documentation</strong></a> 
-3. <a href="https://www.youtube.com/watch?v=0qG_0CPQhpg&t=2713s"><strong>Docker tutorial</strong></a>   https://pytorch.org/docs/stable/index.html
-
+3. <a href="https://www.youtube.com/watch?v=0qG_0CPQhpg&t=2713s"><strong>Docker tutorial</strong></a> 
 
 <!-- CONTACT -->
 ## Contact
